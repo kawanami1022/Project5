@@ -13,7 +13,7 @@ SceneMng*  SceneMng ::sInstance = nullptr;
 SceneMng::SceneMng() :ScreenSize{ 800,600 },
 		ScreenCenter{ ScreenSize / 2 },
 		GameScreenSize{ 500,390 },
-		GameScreenOffset{ScreenCenter - GameScreenSize / 2} // ºİ½Ä×¸À‚ª‘–‚Á‚½uŠÔAÛ¯¸‚ª‚©‚©‚éB
+		GameScreenOffset{ScreenCenter - GameScreenSize / 2} // ï½ºï¾ï½½ï¾„ï¾—ï½¸ï¾€ãŒèµ°ã£ãŸç¬é–“ã€ï¾›ï½¯ï½¸ãŒã‹ã‹ã‚‹ã€‚
 {
 	_frame = 0;
 }
@@ -38,17 +38,17 @@ void SceneMng::Draw(void)
 	SetDrawScreen(DX_SCREEN_BACK);
 	ClsDrawScreen();
 
-	// •`‰æÚ²Ô°‚â•`‰æƒ‚[ƒh‚Ì‰Šú’l‚ğİ’è‚·‚é
+	// æç”»ï¾šï½²ï¾”ï½°ã‚„æç”»ãƒ¢ãƒ¼ãƒ‰ã®åˆæœŸå€¤ã‚’è¨­å®šã™ã‚‹
 	LAYER drawLayer  = begin(LAYER());
 	int blendMode	 = DX_BLENDMODE_NOBLEND;
 	int blendModeNum = 255;
 
-	// Que‚Ì•`‰ææ‚ğİ’è
+	// Queã®æç”»å…ˆã‚’è¨­å®š
 	SetDrawScreen(_layerGID);
 	ClsDrawScreen();
 	SetDrawBlendMode(blendMode, blendModeNum);
 
-	// ½À¯¸‚É‚½‚Ü‚Á‚Ä‚¢‚éQUE‚ğ•`‰æ‚·‚é
+	// ï½½ï¾€ï½¯ï½¸ã«ãŸã¾ã£ã¦ã„ã‚‹QUEã‚’æç”»ã™ã‚‹
 	for (auto dQue : _drawList)
 	{
 		double x, y, rad;
@@ -59,23 +59,23 @@ void SceneMng::Draw(void)
 
 		std::tie(id, x, y, rad, std::ignore, layer, blendMode, blendModeNum) = dQue;
 
-		// æ‚èo‚µ‚½Que‚Ì“à—e‚ª‘O‚Ü‚Å‚ÆLayer‚à‚µ‚­‚Í•`‰æŒ`®‚ªˆá‚¢ê‡
-		// ˆê’UAÊŞ¯¸ÊŞ¯Ì§‚É‘‚«o‚·
+		// å–ã‚Šå‡ºã—ãŸQueã®å†…å®¹ãŒå‰ã¾ã§ã¨Layerã‚‚ã—ãã¯æç”»å½¢å¼ãŒé•ã„å ´åˆ
+		// ä¸€æ—¦ã€ï¾Šï¾ï½¯ï½¸ï¾Šï¾ï½¯ï¾Œï½§ã«æ›¸ãå‡ºã™
 		if ((layer != drawLayer) || (blendModeOld != blendMode))
 		{
-			// _layerGID‚É‘‚¢‚½“à—e‚ğÊŞ¯¸ÊŞ¯Ì§‚É•`‰æ‚·‚é
+			// _layerGIDã«æ›¸ã„ãŸå†…å®¹ã‚’ï¾Šï¾ï½¯ï½¸ï¾Šï¾ï½¯ï¾Œï½§ã«æç”»ã™ã‚‹
 			SetDrawScreen(DX_SCREEN_BACK);
 			SetDrawBlendMode(blendModeOld, blendModeNumOld);
 			auto layPos = ScreenCenter + (*_activeScene)._screenPos;
 			DrawRotaGraph(layPos.x, layPos.y, 1.0, 0, _layerGID, true);
 
-			// Ÿ‚ÌQue‚Ì‚½‚ß‚Ì‰Šú‰»‚µA•`‰ææ‚ğˆê•`‰ææ‚Éİ’è‚·‚é
+			// æ¬¡ã®Queã®ãŸã‚ã®åˆæœŸåŒ–ã—ã€æç”»å…ˆã‚’ä¸€æ™‚æç”»å…ˆã«è¨­å®šã™ã‚‹
 			SetDrawScreen(_layerGID);
 			SetDrawBlendMode(blendMode, blendModeNum);
 			ClsDrawScreen();
 		}
 
-		// Que‚Ì“à—e‚ğ•`‰æ‚·‚é
+		// Queã®å†…å®¹ã‚’æç”»ã™ã‚‹
 		DrawRotaGraph(
 			x,
 			y,
@@ -85,7 +85,7 @@ void SceneMng::Draw(void)
 			true);
 	}
 
-	// for•¶‚ğ”²‚¯‚éÅŒã‚Ì_layerGID‚Ì“à—e‚ğÊŞ¯¸ÊŞ¯Ì§‚É‘‚«o‚·
+	// foræ–‡ã‚’æŠœã‘ã‚‹æœ€å¾Œã®_layerGIDã®å†…å®¹ã‚’ï¾Šï¾ï½¯ï½¸ï¾Šï¾ï½¯ï¾Œï½§ã«æ›¸ãå‡ºã™
 	SetDrawScreen(DX_SCREEN_BACK);
 	SetDrawBlendMode(blendMode, blendModeNum);
 	DrawRotaGraph(ScreenCenter.x, ScreenCenter.y, 1.0, 0, _layerGID, true);
@@ -93,68 +93,6 @@ void SceneMng::Draw(void)
 	DrawEffekseer2D();
 
 	ScreenFlip();
-
-	// ‰æ–Ê‚Éo‚·‚½‚ß‚ÌDraw 
-
-	//for (auto layer : LAYER())
-	//{
-	//	SetDrawScreen(_screenID[layer]);
-	//	ClearDrawScreen();
-	//}
-	//
-
-	//// ½À¯¸‚É‚½‚Ü‚Á‚Ä‚¢‚éQue‚ğ•`‰æ‚·‚é
-	//for (auto dQue : _drawList)
-	//{
-	//	double x, y , rad;
-	//	int id;
-	//	LAYER layer;
-
-	//	std::tie(id, x, y, rad, std::ignore, layer) = dQue;
-
-	//	if (_screenID[layer] != GetDrawScreen())
-	//	{
-	//		SetDrawScreen(_screenID[layer]);
-	//	}
-
-	//	DrawRotaGraph(
-	//		x,
-	//		y,
-	//		1.0,
-	//		rad,
-	//		id,
-	//		true);	
-	//}
-	////for (int no = 0; no < _drawList.size(); no++)	// size‚Å—v‘f”‚ªæ‚ê‚é
-	////{
-	////	// _drawList[no];// ‚±‚ê‚ÅDRAW_QUE‚ğ‚Æ‚ê‚é
-	////		DrawGraph(
-	////			std::get<static_cast<int>(DRAW_QUE::X)>(_drawList[no]),
-	////			std::get<static_cast<int>(DRAW_QUE::Y)>(_drawList[no]),
-	////			std::get<static_cast<int>(DRAW_QUE::IMAGE)>(_drawList[no]),
-	////			true);
-	////}
-	////{
-
-	////}
-	////for(auto dQue = _drawList.begin(); dQue != _drawList.end(); dQue++) // ²ÃÚ°À‚Íauto‚ğg‚¤
-	////{
-	////	DrawGraph(
-	////	    std::get<static_cast<int>(DRAW_QUE::X)>(*dQue),
-	////		std::get<static_cast<int>(DRAW_QUE::Y)>(*dQue),
-	////		std::get<static_cast<int>(DRAW_QUE::IMAGE)>(*dQue),
-	////		true);
-	////}
-	//SetDrawScreen(DX_SCREEN_BACK);
-	//ClsDrawScreen();
-
-	//auto layPos = ScreenCenter + (*_activeScene)._screenPos;
-	//
-	//DrawRotaGraph(ScreenCenter.x, ScreenCenter.y, 1.0, 0, _screenID[LAYER::BG], true);
-	//DrawRotaGraph(layPos.x, layPos.y, 1.0, 0, _screenID[LAYER::CHAR], true);
-	//DrawRotaGraph(ScreenCenter.x, ScreenCenter.y, 1.0, 0, _screenID[LAYER::UI], true);
-
-	//ScreenFlip();
 
 }
 
@@ -172,9 +110,9 @@ void SceneMng::Run(void)
 	{
 		_dbgStartDraw();
 		_drawList.clear();
-		AddDrawQue({IMAGE_ID("˜g")[0],400,300,0.0,0,LAYER::UI, DX_BLENDMODE_NOBLEND, 255});
-		_activeScene = (*_activeScene).Update(std::move(_activeScene));	// move‚ğg‚¤‚±‚Æ‚ÅƒRƒs[‚ğì‚ç‚¸‚ÉŠ—LŒ ‚Ì÷“n‚ª‚Å‚«‚é
-		// ƒXƒ}[ƒgƒ|ƒCƒ“ƒ^‚Æ‚µ‚Ä‚í‚©‚è‚â‚·‚¢‚Ì‚ªã@_activeScene->Update();
+		AddDrawQue({IMAGE_ID("æ ")[0],400,300,0.0,0,LAYER::UI, DX_BLENDMODE_NOBLEND, 255});
+		_activeScene = (*_activeScene).Update(std::move(_activeScene));	// moveã‚’ä½¿ã†ã“ã¨ã§ã‚³ãƒ”ãƒ¼ã‚’ä½œã‚‰ãšã«æ‰€æœ‰æ¨©ã®è­²æ¸¡ãŒã§ãã‚‹
+		// ã‚¹ãƒãƒ¼ãƒˆãƒã‚¤ãƒ³ã‚¿ã¨ã—ã¦ã‚ã‹ã‚Šã‚„ã™ã„ã®ãŒä¸Šã€€_activeScene->Update();
 		UpdateEffekseer2D();
 		Draw();
 		(*_activeScene).RunActQue(std::move(_actList));
@@ -187,13 +125,13 @@ bool SceneMng::AddDrawQue(DrawQueT dQue)
 {
 	
 
-	if (std::get<static_cast<int>(DRAW_QUE::IMAGE)>(dQue) <= 0) 	// std::get<‰½”Ô–Ú>‚Åæ‚èo‚·
+	if (std::get<static_cast<int>(DRAW_QUE::IMAGE)>(dQue) <= 0) 	// std::get<ä½•ç•ªç›®>ã§å–ã‚Šå‡ºã™
 	{
-		// ‰æ‘œID‚ª•s³‚È‚Ì‚ÅA’Ç‰Á‚µ‚È‚¢
+		// ç”»åƒIDãŒä¸æ­£ãªã®ã§ã€è¿½åŠ ã—ãªã„
 		return false;
 	}
-	// Que‚ğ’Ç‰Á
-	// _drawList.push_back(); —v‘f‚ğ’Ç‰Á‚·‚é‚Æ‚«‚Ég‚¤
+	// Queã‚’è¿½åŠ 
+	// _drawList.push_back(); è¦ç´ ã‚’è¿½åŠ ã™ã‚‹ã¨ãã«ä½¿ã†
 
 	_drawList.emplace_back(dQue);
 	return true;
@@ -214,19 +152,19 @@ const int SceneMng::frame(void)
 
 bool SceneMng::SysInit(void)
 {
-	//¼½ÃÑˆ—
+	//ï½¼ï½½ï¾ƒï¾‘å‡¦ç†
 	SetWindowText("kadai5");
-	SetGraphMode(ScreenSize.x, ScreenSize.y, 16);				// 800*600ÄŞ¯ÄA65536FÓ°ÄŞ‚Éİ’è
-	ChangeWindowMode(true);										// true:window  false:ÌÙ½¸Ø°İ
+	SetGraphMode(ScreenSize.x, ScreenSize.y, 16);				// 800*600ï¾„ï¾ï½¯ï¾„ã€65536è‰²ï¾“ï½°ï¾„ï¾ã«è¨­å®š
+	ChangeWindowMode(true);										// true:window  false:ï¾Œï¾™ï½½ï½¸ï¾˜ï½°ï¾
 
-	// DirectX11‚ğ‚µ‚æ‚¤‚·‚é‚æ‚¤‚É‚·‚é
+	// DirectX11ã‚’ã—ã‚ˆã†ã™ã‚‹ã‚ˆã†ã«ã™ã‚‹
 	SetUseDirect3DVersion(DX_DIRECT3D_11);
 
 
 
-	if (DxLib_Init() == -1)										// DX×²ÌŞ×Ø‚Ì‰Šú‰»
+	if (DxLib_Init() == -1)										// DXï¾—ï½²ï¾Œï¾ï¾—ï¾˜ã®åˆæœŸåŒ–
 	{
-		return false;												// DxLib×²ÌŞ×Ø‰Šú‰»ˆ—
+		return false;												// DxLibï¾—ï½²ï¾Œï¾ï¾—ï¾˜åˆæœŸåŒ–å‡¦ç†
 	}
 
 	if (Effekseer_Init(8000) == -1)
@@ -235,14 +173,14 @@ bool SceneMng::SysInit(void)
 		return false;
 	}
 
-	// ƒtƒ‹ƒXƒNƒŠ[ƒ“ƒEƒCƒ“ƒh‚ÌØ‚è‘Ö‚¦‚ÅƒŠƒ\[ƒX‚ªÁ‚¦‚é‚Ì‚ğ–h‚®
+	// ãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚¦ã‚¤ãƒ³ãƒ‰ã®åˆ‡ã‚Šæ›¿ãˆã§ãƒªã‚½ãƒ¼ã‚¹ãŒæ¶ˆãˆã‚‹ã®ã‚’é˜²ã
 	SetChangeScreenModeGraphicsSystemResetFlag(FALSE);
 
-	// DXƒ‰ƒCƒuƒ‰ƒŠ‚ÌƒfƒoƒCƒXƒƒXƒg‚µ‚½‚Æ‚«‚ÌƒR[ƒ‹ƒoƒbƒN‚ğİ’è‚·‚é
-	// ƒEƒCƒ“ƒh‚Æƒtƒ‹ƒXƒNƒŠ[ƒ“‚ÌØ‚è‘Ö‚¦‚ª”­¶‚·‚éê‡‚Í•K‚¸Às‚·‚é
+	// DXãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®ãƒ‡ãƒã‚¤ã‚¹ãƒ­ã‚¹ãƒˆã—ãŸã¨ãã®ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯ã‚’è¨­å®šã™ã‚‹
+	// ã‚¦ã‚¤ãƒ³ãƒ‰ã¨ãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã®åˆ‡ã‚Šæ›¿ãˆãŒç™ºç”Ÿã™ã‚‹å ´åˆã¯å¿…ãšå®Ÿè¡Œã™ã‚‹
 	Effekseer_SetGraphicsDeviceLostCallbackFunctions();
 
-	SetDrawScreen(DX_SCREEN_BACK);	// •`‰ææ‚ğÊŞ¯¸ÊŞ¯Ì§‚Éİ’è
+	SetDrawScreen(DX_SCREEN_BACK);	// æç”»å…ˆã‚’ï¾Šï¾ï½¯ï½¸ï¾Šï¾ï½¯ï¾Œï½§ã«è¨­å®š
 
 	_layerGID = MakeScreen(ScreenSize.x, ScreenSize.y, true);
 
@@ -250,13 +188,13 @@ bool SceneMng::SysInit(void)
 	_screenID.try_emplace(LAYER::CHAR, MakeScreen(ScreenSize.x, ScreenSize.y, true));
 	_screenID.try_emplace(LAYER::UI, MakeScreen(ScreenSize.x, ScreenSize.y, true));*/
 
-	// Effekseer‚É2D•`‰æ‚Ìİ’è‚·‚é
+	// Effekseerã«2Dæç”»ã®è¨­å®šã™ã‚‹
 	Effekseer_Set2DSetting(ScreenSize.x, ScreenSize.y);
 	SetUseZBuffer3D(TRUE);
 	SetWriteZBuffer3D(TRUE);
 
 	_dbgSetup(200);
-	lpImageMng.GetID("˜g", "image/frame.png");
+	lpImageMng.GetID("æ ", "image/frame.png");
 	lpImageMng.GetID("white", "image/white.png");
 	lpImageMng.GetID("black", "image/black.png");
 	lpImageMng.GetID("title", "image/title.png");
